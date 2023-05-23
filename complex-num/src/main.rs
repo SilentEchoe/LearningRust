@@ -9,10 +9,16 @@ fn main() {
 
     let a = add_with_extra(1, 2);
     println!("a = {}", a);
+
+    dead_end();
 }
 
 fn add_with_extra(x: i32, y: i32) -> i32 {
     let x = x + 1; // 语句
     let y = y + 5; // 语句
     x + y // 表达式
+}
+
+fn dead_end() -> ! {
+    panic!("你已经到了穷途末路，崩溃吧！");
 }
