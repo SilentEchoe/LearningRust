@@ -1,9 +1,8 @@
 fn main() {
-    let reference_to_nothing = dangle();
+    let s = String::from("hello");
+    say_hello(&s);
 }
 
-fn dangle() -> &String {
-    let s = String::from("hello");
-
-    &s
+fn say_hello(s: &str) {
+    println!("{}", s);
 }
