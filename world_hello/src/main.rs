@@ -1,13 +1,19 @@
 fn main() {
-    let email = String::from("12345@gmail.com");
-    let name = String::from("12345@gmail.com");
-
-    let user1 = build_user(email, name);
-    let user2 = User {
-        email: String::from("12"),
-        ..user1
+    let user1 = User {
+        email: String::from("someone@example.com"),
+        username: String::from("someusername123"),
+        active: true,
+        sign_in_count: 1,
     };
-    println!("{:?}", user2);
+    let user2 = User {
+        active: user1.active,
+        username: user1.username,
+        email: String::from("another@example.com"),
+        sign_in_count: user1.sign_in_count,
+    };
+    println!("{}", user1.active);
+    // 下面这行会报错
+    println!("{:?}", user1);
 }
 
 #[derive(Debug)]
