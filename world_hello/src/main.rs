@@ -1,5 +1,13 @@
 fn main() {
-    let array: [String; 8] = std::array::from_fn(|i| String::from("rust is good!"));
+    let dire = Direction::North;
+    match dire {
+        Direction::North => println!("North"),
+        Direction::West | Direction::South => println!("North or East"),
+    }
+}
 
-    println!("{:#?}", array);
+enum Direction {
+    North,
+    South,
+    West,
 }
