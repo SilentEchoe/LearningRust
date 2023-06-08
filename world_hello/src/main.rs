@@ -1,13 +1,13 @@
 fn main() {
-    let dire = Direction::North;
-    match dire {
-        Direction::North => println!("North"),
-        Direction::West | Direction::South => println!("North or East"),
-    }
+    let ip1 = IPAddrKind::V4;
+    let ip_str = match ip1 {
+        IPAddrKind::V4 => "V4",
+        _ => "V6",
+    };
+    println!("ip1 is {}", ip_str);
 }
 
-enum Direction {
-    North,
-    South,
-    West,
+enum IPAddrKind {
+    V4,
+    V6,
 }
