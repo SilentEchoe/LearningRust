@@ -1,13 +1,17 @@
 fn main() {
-    let ip1 = IPAddrKind::V4;
-    let ip_str = match ip1 {
-        IPAddrKind::V4 => "V4",
-        _ => "V6",
-    };
-    println!("ip1 is {}", ip_str);
+    let calss2 = Class::ClassTwo(Student::StudentOne);
+
+    if let cass = Class::ClassTwo(Student::StudentOne) {
+        println!("ClassTwo");
+    }
 }
 
-enum IPAddrKind {
-    V4,
-    V6,
+enum Student {
+    StudentOne,
+    StudentTwo,
+}
+
+enum Class {
+    ClassOne,
+    ClassTwo(Student),
 }
