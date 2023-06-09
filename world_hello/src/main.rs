@@ -1,17 +1,17 @@
 fn main() {
-    let calss2 = Class::ClassTwo(Student::StudentOne);
+    let a = MyEnum::A;
+    assert!(matches!(a, MyEnum::A));
 
-    if let cass = Class::ClassTwo(Student::StudentOne) {
-        println!("ClassTwo");
+    let age = Some(3);
+    println!("age: {:?}", age);
+    if let Some(age) = age {
+        println!("age: {:?}", age);
     }
+    println!("age: {:?}", age);
 }
 
-enum Student {
-    StudentOne,
-    StudentTwo,
-}
-
-enum Class {
-    ClassOne,
-    ClassTwo(Student),
+enum MyEnum {
+    A,
+    B,
+    C,
 }
