@@ -1,17 +1,8 @@
 fn main() {
-    let a = MyEnum::A;
-    assert!(matches!(a, MyEnum::A));
+    let alphabets = ['a', 'E', 'Z', '0', 'x', '9', 'Y'];
 
-    let age = Some(3);
-    println!("age: {:?}", age);
-    if let Some(age) = age {
-        println!("age: {:?}", age);
+    // 使用 `matches` 填空
+    for ab in alphabets {
+        assert!(matches!(ab,'A'..='Z' | 'a'..='z'))
     }
-    println!("age: {:?}", age);
-}
-
-enum MyEnum {
-    A,
-    B,
-    C,
 }
