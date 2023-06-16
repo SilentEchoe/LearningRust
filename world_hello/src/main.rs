@@ -1,8 +1,10 @@
 fn main() {
-    let alphabets = ['a', 'E', 'Z', '0', 'x', '9', 'Y'];
+    let mut stack = Vec::new();
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
 
-    // 使用 `matches` 填空
-    for ab in alphabets {
-        assert!(matches!(ab,'A'..='Z' | 'a'..='z'))
+    while let Some(top) = stack.pop() {
+        println!("{}", top);
     }
 }
