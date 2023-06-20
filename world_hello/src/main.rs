@@ -1,16 +1,17 @@
 fn main() {
-    // 变量遮蔽
-    let x = Some(5);
-    let y = 10;
+    let p = Point { x: 0, y: 7 };
+    let Point { x: a, y: b } = p;
+    assert_eq!(0, a);
+    assert_eq!(7, b);
 
-    match x {
-        Some(50) => println!("Got 50"),
-        Some(y) => println!("Matched, y = {:?}", y), // y = 5
-        _ => println!("Default case, x = {:?}", x),
+    match p {
+        Point { x, y: 0 } => println!("On the x axis at {}", x),
+        Point { x: 0, y } => println!("On the y axis at {}", y),
+        Point { x, y } => println!("On neither axis: ({}, {})", x, y),
     }
+}
 
-    match y {
-        1..=10 => println!("one through ten"), // 1..=10 匹配 1-10
-        _ => println!("something else"),
-    }
+struct Point {
+    x: i32,
+    y: i32,
 }
