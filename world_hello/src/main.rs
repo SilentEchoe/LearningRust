@@ -4,18 +4,33 @@ struct Rectangle {
 }
 
 impl Rectangle {
-    fn area(&self) -> u32 {
+    fn width(&self) -> u32 {
         self.width * self.height
+    }
+
+    fn new(w: u32, h: u32) -> Rectangle {
+        Rectangle {
+            width: w,
+            height: h,
+        }
+    }
+}
+
+impl Rectangle {
+    fn height(&self) -> u32 {
+        self.height
     }
 }
 
 fn main() {
-    let rect1 = Rectangle {
-        width: 30,
-        height: 50,
-    };
+    let rect1 = Rectangle::new(30, 50);
+
     println!(
         "The area of the rectangle is {} square pixels.",
-        rect1.area()
+        rect1.width(),
+    );
+    println!(
+        "The area of the rectangle is {} square pixels.",
+        rect1.height(),
     );
 }
