@@ -1,7 +1,9 @@
-fn add<T: std::ops::Add<Output = T>>(a: T, b: T) -> T {
-    a + b
+struct Point<T> {
+    x: T,
+    y: T,
 }
 
 fn main() {
-    println!("{}", add(1, 2));
+    let integer = Point { x: 5, y: 10 };
+    println!("integer.x = {}", integer.x);
 }
