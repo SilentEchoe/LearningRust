@@ -8,6 +8,16 @@ struct Point<T, U> {
     y: U,
 }
 
+struct Val<T> {
+    val: T,
+}
+
+impl<T> Val<T> {
+    fn value(&self) -> &T {
+        &self.val
+    }
+}
+
 fn main() {
     assert_eq!(5, sum(2i8, 3i8));
     assert_eq!(50, sum(20, 30));
@@ -16,5 +26,11 @@ fn main() {
         x: 5,
         y: "hello".to_string(),
     };
-    println!("p.x = {}, p.y = {}", p.x, p.y)
+    println!("p.x = {}, p.y = {}", p.x, p.y);
+
+    let x = Val { val: 3.0 };
+    let y = Val {
+        val: "hello".to_string(),
+    };
+    println!("{}, {}", x.value(), y.value());
 }
