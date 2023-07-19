@@ -1,6 +1,6 @@
 pub trait Summary {
     fn summarize(&self) -> String {
-        String::from("(阅读更多...)")
+        format!("(Read more from {}...)", self.summarize_author())
     }
     fn summarize_author(&self) -> String;
 }
@@ -23,11 +23,8 @@ pub struct Weibo {
 }
 
 impl Summary for Weibo {
-    fn summarize(&self) -> String {
-        format!("微博用户{} 发表内容{}", self.username, self.content)
-    }
     fn summarize_author(&self) -> String {
-        format!("@作者{}", self.username)
+        format!("@{}", self.username)
     }
 }
 
@@ -44,6 +41,5 @@ fn main() {
     };
 
     println!("post: {}", post.summarize());
-    println!("weibo: {}", weibo.summarize());
     println!("1 new weibo: {}", weibo.summarize());
 }
