@@ -1,45 +1,23 @@
-pub trait Summary {
-    fn summarize(&self) -> String {
-        format!("(Read more from {}...)", self.summarize_author())
+fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
+    let mut largest = list[0];
+
+    for &item in list.iter() {
+        if item > largest {
+            largest = item;
+        }
     }
-    fn summarize_author(&self) -> String;
-}
 
-pub struct Post {
-    pub title: String,
-    pub author: String,
-    pub content: String,
-}
-
-impl Summary for Post {
-    fn summarize_author(&self) -> String {
-        format!("@作者{}", self.author)
-    }
-}
-
-pub struct Weibo {
-    pub username: String,
-    pub content: String,
-}
-
-impl Summary for Weibo {
-    fn summarize_author(&self) -> String {
-        format!("@{}", self.username)
-    }
+    largest
 }
 
 fn main() {
-    let post = Post {
-        title: "Rust标题".to_string(),
-        author: "Rust作者".to_string(),
-        content: "Rust内容".to_string(),
-    };
+    let number_list = vec![34, 50, 25, 100, 65];
 
-    let weibo = Weibo {
-        username: "微博用户".to_string(),
-        content: "微博内容".to_string(),
-    };
+    let result = largest(&number_list);
+    println!("The largest number is {}", result);
 
-    println!("post: {}", post.summarize());
-    println!("1 new weibo: {}", weibo.summarize());
+    let char_list = vec!['y', 'm', 'a', 'q'];
+
+    let result = largest(&char_list);
+    println!("The largest char is {}", result);
 }
