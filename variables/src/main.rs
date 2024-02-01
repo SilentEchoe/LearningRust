@@ -1,11 +1,13 @@
 #[warn(unused_imports)]
 
-fn main() {
-    let mut s1 = String::from("hello");
-    change(&mut s1);
-    println!("{}", s1);
-}
 
-fn change(some_string: &mut String)  {
-   some_string.push_str(", world");
+fn main() {
+    let mut s = String::from("hello, ");
+
+    let r1 = &mut s;
+    let r2 = &mut s;
+    println!("{}", r1);
+
+    // 在下面增加一行代码人为制造编译错误：cannot borrow `s` as mutable more than once at a time
+    // 你不能同时使用 r1 和 r2
 }
