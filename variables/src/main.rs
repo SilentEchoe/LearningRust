@@ -1,7 +1,9 @@
 //定义一个特征
 pub trait Summary {
     // 定义一个行为
-    fn summarize(&self) -> String;
+    fn summarize(&self) -> String{
+        String::from("(Read more...)")
+    }
 }
 
 pub struct Post{
@@ -12,9 +14,6 @@ pub struct Post{
 }
 
 impl Summary for Post {
-    fn summarize(&self) -> String {
-        format!("{} by {}", self.title, self.author)
-    }
 }
 
 pub struct NewsArticle {
@@ -30,6 +29,9 @@ impl Summary for NewsArticle {
     }
 }
 
+pub fn notify(item: &impl Summary) {
+    println!("Breaking news! {}", item.summarize());
+}
 
 fn main() {
     let post = Post {
@@ -47,5 +49,7 @@ fn main() {
 
     println!("post: {}", post.summarize());
     println!("NewsArticle: {}", NewsArticle.summarize());
+
+    notify(&post);
 
 }
