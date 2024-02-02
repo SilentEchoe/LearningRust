@@ -1,13 +1,29 @@
 #[warn(unused_imports)]
 
 
+struct Circle{
+    x: f64,
+    y: f64,
+    radius: f64,
+}
+
+// 定义方法
+impl Circle   {
+    fn new(x:f64,y:f64,radius:f64) -> Circle{
+        Circle{
+            x: x,
+            y: y,
+            radius: radius,
+        }
+    }
+
+    // Circle的方法
+    fn area(&self) -> f64{
+        std::f64::consts::PI * (self.radius * self.radius)
+    }
+}
+
 fn main() {
-    let mut s = String::from("hello, ");
-
-    let r1 = &mut s;
-    let r2 = &mut s;
-    println!("{}", r1);
-
-    // 在下面增加一行代码人为制造编译错误：cannot borrow `s` as mutable more than once at a time
-    // 你不能同时使用 r1 和 r2
+    let circle1 = crate::Circle::new(0.0,0.0,2.0);
+    println!("{}",circle1.area());
 }
