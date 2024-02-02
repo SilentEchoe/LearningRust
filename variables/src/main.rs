@@ -1,29 +1,51 @@
-#[warn(unused_imports)]
-
-
-struct Circle{
-    x: f64,
-    y: f64,
-    radius: f64,
+//定义一个特征
+pub trait Summary {
+    // 定义一个行为
+    fn summarize(&self) -> String;
 }
 
-// 定义方法
-impl Circle   {
-    fn new(x:f64,y:f64,radius:f64) -> Circle{
-        Circle{
-            x: x,
-            y: y,
-            radius: radius,
-        }
-    }
+pub struct Post{
+    // 定义一个字段
+    pub title: String,
+    pub author: String,
+    pub content: String,
+}
 
-    // Circle的方法
-    fn area(&self) -> f64{
-        std::f64::consts::PI * (self.radius * self.radius)
+impl Summary for Post {
+    fn summarize(&self) -> String {
+        format!("{} by {}", self.title, self.author)
     }
 }
+
+pub struct NewsArticle {
+    pub headline: String,
+    pub location: String,
+    pub author: String,
+    pub content: String,
+}
+
+impl Summary for NewsArticle {
+    fn summarize(&self) -> String {
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
+    }
+}
+
 
 fn main() {
-    let circle1 = crate::Circle::new(0.0,0.0,2.0);
-    println!("{}",circle1.area());
+    let post = Post {
+        title: String::from("My Post"),
+        author: String::from("My Author"),
+        content: String::from("My Content"),
+    };
+
+    let NewsArticle = NewsArticle {
+        headline: String::from("My Headline"),
+        location: String::from("My Location"),
+        author: String::from("My Author"),
+        content: String::from("My Content"),
+    };
+
+    println!("post: {}", post.summarize());
+    println!("NewsArticle: {}", NewsArticle.summarize());
+
 }
