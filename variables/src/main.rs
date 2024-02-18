@@ -1,55 +1,28 @@
-//定义一个特征
-pub trait Summary {
-    // 定义一个行为
-    fn summarize(&self) -> String{
-        String::from("(Read more...)")
+trait IpAddr {
+    fn display(&self);
+}
+
+struct Ipv4(String);
+impl IpAddr for Ipv4 {
+    fn display(&self) {
+        println!("Ipv4: {}", self.0);
     }
 }
 
-pub struct Post{
-    // 定义一个字段
-    pub title: String,
-    pub author: String,
-    pub content: String,
-}
-
-impl Summary for Post {
-}
-
-pub struct NewsArticle {
-    pub headline: String,
-    pub location: String,
-    pub author: String,
-    pub content: String,
-}
-
-impl Summary for NewsArticle {
-    fn summarize(&self) -> String {
-        format!("{}, by {} ({})", self.headline, self.author, self.location)
+struct Ipv6(String);
+impl IpAddr for crate::Ipv6 {
+    fn display(&self) {
+        println!("Ipv6: {}", self.0);
     }
 }
 
-pub fn notify(item: &impl Summary) {
-    println!("Breaking news! {}", item.summarize());
-}
 
 fn main() {
-    let post = Post {
-        title: String::from("My Post"),
-        author: String::from("My Author"),
-        content: String::from("My Content"),
-    };
+    let v: Vec<Box<dyn IpAddr>> = vec![
+        Box::new(Ipv4(String::from("127.0.0.1".to_string()))),
+        Box::new(Ipv6(String::from("::1".to_string())))];
 
-    let NewsArticle = NewsArticle {
-        headline: String::from("My Headline"),
-        location: String::from("My Location"),
-        author: String::from("My Author"),
-        content: String::from("My Content"),
-    };
-
-    println!("post: {}", post.summarize());
-    println!("NewsArticle: {}", NewsArticle.summarize());
-
-    notify(&post);
-
+    for ip in v {
+        ip.display();
+    }
 }
