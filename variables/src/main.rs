@@ -1,28 +1,31 @@
-trait IpAddr {
-    fn display(&self);
-}
-
-struct Ipv4(String);
-impl IpAddr for Ipv4 {
-    fn display(&self) {
-        println!("Ipv4: {}", self.0);
-    }
-}
-
-struct Ipv6(String);
-impl IpAddr for crate::Ipv6 {
-    fn display(&self) {
-        println!("Ipv6: {}", self.0);
-    }
-}
-
 
 fn main() {
-    let v: Vec<Box<dyn IpAddr>> = vec![
-        Box::new(Ipv4(String::from("127.0.0.1".to_string()))),
-        Box::new(Ipv6(String::from("::1".to_string())))];
+    let arr: [u8; 3] = [1, 2, 3];
 
-    for ip in v {
-        ip.display();
+    let v = Vec::from(arr);
+    is_vec(&v);
+
+    let v = vec![1, 2, 3];
+    is_vec(&v);
+
+    // vec!(..) 和 vec![..] 是同样的宏，宏可以使用 []、()、{}三种形式，因此...
+    let v = vec!(1, 2, 3);
+    is_vec(&v);
+
+    // in code below, v is Vec<[u8; 3]> , not Vec<u8>
+    // USE `for` to rewrite the below code
+    let mut v1 = Vec::new();
+    for i in &v {
+        v1.push(*i)
     }
+    is_vec(&v1);
+
+    assert_eq!(format!("{:?}",v), format!("{:?}",v1));
+
+
+    println!("Success!")
+}
+
+fn is_vec(v: &Vec<u8>) {
+
 }
