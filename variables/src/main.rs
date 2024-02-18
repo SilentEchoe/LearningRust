@@ -1,31 +1,33 @@
-// 修复错误
+/* 增加合适的生命周期标准，让代码工作 */
+
+// `i32` 的引用必须比 `Borrowed` 活得更久
+#[derive(Debug)]
+struct Borrowed<'a>(&'a i32);
+
+// 类似的，下面两个引用也必须比结构体 `NamedBorrowed` 活得更久
+#[derive(Debug)]
+struct NamedBorrowed<'a> {
+    x: &'a i32,
+    y: &'a i32,
+}
+
+#[derive(Debug)]
+enum Either<'a> {
+    Num(i32),
+    Ref(&'a i32),
+}
+
 fn main() {
-    let mut vec = Vec::with_capacity(10);
+    let x = 18;
+    let y = 15;
 
-    assert_eq!(vec.len(), 0);
-    assert_eq!(vec.capacity(), 10);
+    let single = Borrowed(&x);
+    let double = NamedBorrowed { x: &x, y: &y };
+    let reference = Either::Ref(&x);
+    let number    = Either::Num(y);
 
-    // 由于提前设置了足够的容量，这里的循环不会造成任何内存分配...
-    for i in 0..10 {
-        vec.push(i);
-    }
-    assert_eq!(vec.len(), 10);
-    assert_eq!(vec.capacity(), 10);
-
-    // ...但是下面的代码会造成新的内存分配
-    vec.push(11);
-    assert_eq!(vec.len(), 11);
-    assert!(vec.capacity() >= 11);
-
-
-    // 填写一个合适的值，在 `for` 循环运行的过程中，不会造成任何内存分配
-    let mut vec = Vec::with_capacity(100);
-    for i in 0..100 {
-        vec.push(i);
-    }
-
-    assert_eq!(vec.len(), 100);
-    assert_eq!(vec.capacity(), 100);
-
-    println!("Success!")
+    println!("x is borrowed in {:?}", single);
+    println!("x and y are borrowed in {:?}", double);
+    println!("x is borrowed in {:?}", reference);
+    println!("y is *not* borrowed in {:?}", number);
 }
