@@ -1,22 +1,12 @@
-
-#[derive(Debug)]
-struct NoCopyType {}
-
-#[derive(Debug)]
-#[allow(dead_code)]
-struct Example<'a, 'b> {
-    a: &'a u32,
-    b: &'b NoCopyType
+/* 添加合适的生命周期让下面代码工作 */
+struct ImportantExcerpt<'a> {
+    part: &'a str,
 }
 
-/* 修复函数的签名 */
-fn fix_me<'b>(foo: &'b Example) -> &'b NoCopyType
-{  foo.b }
-
-fn main()
-{
-    let no_copy = NoCopyType {};
-    let example = Example { a: &1, b: &no_copy };
-    fix_me(&example);
-    println!("Success!")
+impl<'a> ImportantExcerpt<'a> {
+    fn level(&'a self) -> i32 {
+        3
+    }
 }
+
+fn main() {}
