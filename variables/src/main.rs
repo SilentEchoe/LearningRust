@@ -1,31 +1,31 @@
-
+// 修复错误
 fn main() {
-    let arr: [u8; 3] = [1, 2, 3];
+    let mut vec = Vec::with_capacity(10);
 
-    let v = Vec::from(arr);
-    is_vec(&v);
+    assert_eq!(vec.len(), 0);
+    assert_eq!(vec.capacity(), 10);
 
-    let v = vec![1, 2, 3];
-    is_vec(&v);
-
-    // vec!(..) 和 vec![..] 是同样的宏，宏可以使用 []、()、{}三种形式，因此...
-    let v = vec!(1, 2, 3);
-    is_vec(&v);
-
-    // in code below, v is Vec<[u8; 3]> , not Vec<u8>
-    // USE `for` to rewrite the below code
-    let mut v1 = Vec::new();
-    for i in &v {
-        v1.push(*i)
+    // 由于提前设置了足够的容量，这里的循环不会造成任何内存分配...
+    for i in 0..10 {
+        vec.push(i);
     }
-    is_vec(&v1);
+    assert_eq!(vec.len(), 10);
+    assert_eq!(vec.capacity(), 10);
 
-    assert_eq!(format!("{:?}",v), format!("{:?}",v1));
+    // ...但是下面的代码会造成新的内存分配
+    vec.push(11);
+    assert_eq!(vec.len(), 11);
+    assert!(vec.capacity() >= 11);
 
+
+    // 填写一个合适的值，在 `for` 循环运行的过程中，不会造成任何内存分配
+    let mut vec = Vec::with_capacity(100);
+    for i in 0..100 {
+        vec.push(i);
+    }
+
+    assert_eq!(vec.len(), 100);
+    assert_eq!(vec.capacity(), 100);
 
     println!("Success!")
-}
-
-fn is_vec(v: &Vec<u8>) {
-
 }
