@@ -32,3 +32,11 @@ fn read_username_from_file_v2() -> Result<String, io::Error> {
     // 读取成功，返回Ok封装的字符串
     Ok(s)
 }
+
+fn read_username_from_file_v3() -> Result<String, io::Error> {
+    let mut s = String::new();
+    File::open("hello.txt")?.read_to_string(&mut s)?; //链式调用
+    Ok(s)
+}
+
+fn main() {}
