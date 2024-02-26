@@ -1,7 +1,7 @@
 use std::env;
-use std::fs;
 use std::process;
-use std::error::Error;
+
+use minigrep::Config;
 
 fn main() {
     // env::args 读取并分析传入的命令行参数，最终通过 collect 方法将其转换为一个集合类型 Vector
@@ -15,35 +15,16 @@ fn main() {
     println!("Searching for {}", config.query);
     println!("In file {}", config.file_path);
 
-    if let Err(e) =  run(config){
+    if let Err(e) = minigrep::run(config){
         println!("Application error: {}", e);
         process::exit(1);
     };
 }
 
-fn run(config: Config) -> Result<(),Box<dyn Error>> {
-    let contents = fs::read_to_string(config.file_path)?;
-    println!("With text:\n{}", contents);
-    Ok(())
-}
 
 
-struct Config{
-     query: String,
-     file_path: String,
 
-}
 
-impl Config{
-  fn build(args: &[String]) -> Result<Config,&'static str>{
-    if args.len() < 3 {
-        return Err("not enough arguments");
-    }
 
-    let query = args[1].clone();
-    let file_path = args[2].clone();
-    Ok(Config{query,file_path})
-  }
-}
 
 

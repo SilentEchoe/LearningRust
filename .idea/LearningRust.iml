@@ -2,7 +2,11 @@
 <module type="EMPTY_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/minigrep/minigrep/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/minigrep/src/lib/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/variables/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/minigrep/minigrep/target" />
+      <excludeFolder url="file://$MODULE_DIR$/minigrep/src/lib/target" />
       <excludeFolder url="file://$MODULE_DIR$/variables/target" />
     </content>
     <orderEntry type="inheritedJdk" />
