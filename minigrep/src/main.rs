@@ -1,18 +1,20 @@
 use std::env;
 use std::fs;
+use std::process;
 
 fn main() {
     // env::args 读取并分析传入的命令行参数，最终通过 collect 方法将其转换为一个集合类型 Vector
    let args: Vec<String> = env::args().collect();
-    // dbg! 宏用于打印调试信息
-    dbg!(&args);
 
-    //需要两个变量来存储文件路径和待搜索的字符串
-    let config = Config::new(&args);
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        println!("Problem parsing arguments: {err}");
+        process::exit(1);
+    });
 
-    println!("In file {}", filename);
+    println!("Searching for {}", config.query);
+    println!("In file {}", config.file_path);
 
-    let contents = fs::read_to_string(filename)
+    let contents = fs::read_to_string(config.file_path)
         .expect("Something went wrong reading the file");
 
     println!("With text:\n{}", contents);
@@ -25,17 +27,15 @@ struct Config{
 }
 
 impl Config{
-  fn new(args: &[String]) -> Config{
+  fn build(args: &[String]) -> Result<Config,&'static str>{
+    if args.len() < 3 {
+        return Err("not enough arguments");
+    }
+
     let query = args[1].clone();
-    let file_path = &args[2].clone();
-    Config{query,file_path}
+    let file_path = args[2].clone();
+    Ok(Config{query,file_path})
   }
 }
 
-
-fn parse_config(args: &[String]) -> Config{
-  let query = args[1].clone();
-  let file_path = &args[2].clone();
-  return Config{query,file_path}
-}
 
