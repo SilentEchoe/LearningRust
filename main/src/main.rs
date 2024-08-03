@@ -1,9 +1,9 @@
 
 fn main() {
-    let s = String::from("hello, ");
+    let t = (String::from("hello"), String::from("world"));
 
-    // 只修改下面这行代码 !
-    let mut s1 = s.clone();
+    // 填空，不要修改其它代码
+    let (s1, s2) = &t;
 
-    s1.push_str("world")
+    println!("{:?}, {:?}, {:?}", s1, s2, t); // -> "hello", "world", ("hello", "world")
 }
