@@ -1,12 +1,10 @@
 
-// 注释掉一行代码让它工作
+// 使用至少两种方法来修复错误
 fn main() {
-    let mut s = String::from("hello, ");
+    let s: Box<str> = "hello, world".into();
+    greetings(s)
+}
 
-    let r1 = &mut s;
-    r1.push_str("world");
-    let r2 = &mut s;
-    r2.push_str("!");
-
-    println!("{}",r1);
+fn greetings(s: Box<str>) {
+    println!("{}",s)
 }
