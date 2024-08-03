@@ -1,12 +1,9 @@
-// 修复错误，不要删除任何代码行
+
 fn main() {
-    let s = String::from("hello, world");
+    let s = String::from("hello, ");
 
-    print_str(&s);
+    // 只修改下面这行代码 !
+    let mut s1 = s.clone();
 
-    println!("{}", s);
-}
-
-fn print_str(s: &String)  {
-    println!("{}",s);
+    s1.push_str("world")
 }
