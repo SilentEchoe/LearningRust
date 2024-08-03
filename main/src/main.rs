@@ -1,10 +1,8 @@
+use std::i32;
 
-// 移除某个部分让代码工作
+// 解决代码中的错误和 `panic`
 fn main() {
-    let x: i32 = 5;
-    let mut y = 5;
-
-    y = x;
-
-    let z = 10; // 这里 z 的类型是? 
+    let v1 = 251_i32 + 8;
+    let v2 = i32::checked_add(251, 8).unwrap();
+    println!("{},{}",v1,v2);
 }
