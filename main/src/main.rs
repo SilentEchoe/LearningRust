@@ -1,13 +1,11 @@
 
-// 填空
-enum Message {
-    Quit,
-    Move { x: i32, y: i32 },
-    Write(String),
-    ChangeColor(i32, i32, i32),
-}
-
+// 修复代码中的错误
 fn main() {
-    let msg1 = Message::Move{x:1,y:2}; // 使用x = 1, y = 2 来初始化
-    let msg2 = Message::Write(String::from( "hello,world")); // 使用 "hello, world!" 来初始化
+    let names = [String::from("Sunfei"), "Sunface".to_string()];
+
+    // `get` 返回 `Option<T>` 类型，因此它的使用非常安全
+    let name0 = names.get(0).unwrap();
+
+    // 但是下标索引就存在越界的风险了
+    let _name1 = &names[1];
 }
