@@ -1,18 +1,18 @@
 
-// 修复错误
+// 修复错误，不要新增或删除代码行
 fn main() {
-    let n = 5;
+    let mut names = [String::from("liming"),String::from("hanmeimei")];
+    for name in &mut names {
+        // do something with name...
+    }
 
-    let big_n =
-        if n < 10 && n > -10 {
-            println!(" 数字太小，先增加 10 倍再说");
+    println!("{:?}", names);
 
-            (10 * n) as f64
-        } else {
-            println!("数字太大，我们得让它减半");
+    let numbers = [1, 2, 3];
+    // numbers中的元素实现了 Copy，因此无需转移所有权
+    for n in numbers {
+        // do something with name...
+    }
 
-            (n / 2) as f64
-        };
-
-    println!("{} -> {}", n, big_n);
-}
+    println!("{:?}", numbers);
+} 
