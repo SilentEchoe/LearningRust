@@ -1,27 +1,13 @@
 
-// 修复错误
-enum Number {
-    Zero,
-    One,
-    Two,
+// 填空
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
 }
-
-enum Number1 {
-    Zero = 0,
-    One,
-    Two,
-}
-
-// C语言风格的枚举定义
-enum Number2 {
-    Zero = 0,
-    One = 1,
-    Two = 2,
-}
-
 
 fn main() {
-    // 通过 `as` 可以将枚举值强转为整数类型
-    assert_eq!(Number::One as u32, Number1::One as u32);
-    assert_eq!(Number1::One as u32, Number2::One as u32);
+    let msg1 = Message::Move{x:1,y:2}; // 使用x = 1, y = 2 来初始化
+    let msg2 = Message::Write(String::from( "hello,world")); // 使用 "hello, world!" 来初始化
 }
