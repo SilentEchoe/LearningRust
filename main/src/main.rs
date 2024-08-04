@@ -1,19 +1,27 @@
 
 // 修复错误
-#[derive(Debug)]
-struct File {
-    name: String,
-    data: String,
+enum Number {
+    Zero,
+    One,
+    Two,
 }
+
+enum Number1 {
+    Zero = 0,
+    One,
+    Two,
+}
+
+// C语言风格的枚举定义
+enum Number2 {
+    Zero = 0,
+    One = 1,
+    Two = 2,
+}
+
+
 fn main() {
-    let f = File {
-        name: String::from("readme.md"),
-        data: "Rust By Practice".to_string()
-    };
-
-    let _name = f.name;
-
-    // 只能修改这一行
-    // 这里的 f 是不可变的，所以不能修改 f.data,因为当结构体中某个字段的所有权被移动后，整个结构体的所有权也被移动了
-    //println!("{},{:?}",f.data, f);
-} 
+    // 通过 `as` 可以将枚举值强转为整数类型
+    assert_eq!(Number::One as u32, Number1::One as u32);
+    assert_eq!(Number1::One as u32, Number2::One as u32);
+}
