@@ -1,25 +1,19 @@
 
 // 填空，让代码工作
-struct User {
-    active: bool,
-    username: String,
-    email: String,
-    sign_in_count: u64,
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
 }
+
 fn main() {
-    let u1 = User {
-        email: String::from("someone@example.com"),
-        username: String::from("sunface"),
-        active: true,
-        sign_in_count: 1,
+    let scale = 2;
+    let rect1 = Rectangle {
+        width: dbg!(30 * scale), // 打印 debug 信息到标准错误输出 stderr,并将 `30 * scale` 的值赋给 `width`
+        height: 50,
     };
 
-    let u2 = set_email(u1);
-}
+    dbg!(&rect1); // 打印 debug 信息到标准错误输出 stderr
 
-fn set_email(u: User) -> User {
-    User {
-        email: String::from("contact@im.dev"),
-        ..u
-    }
+    println!("rect1 is {:?}", rect1); // 打印 debug 信息到标准输出 stdout
 }
