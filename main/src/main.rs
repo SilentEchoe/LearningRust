@@ -1,18 +1,14 @@
 
-// 修复错误，不要新增或删除代码行
+// 填空，不要修改其它代码
 fn main() {
-    let mut names = [String::from("liming"),String::from("hanmeimei")];
-    for name in &mut names {
-        // do something with name...
+    let mut n = 0;
+    for i in 0..=100 {
+        if n != 66 {
+            n+=1;
+            continue;
+        }
+        break
     }
 
-    println!("{:?}", names);
-
-    let numbers = [1, 2, 3];
-    // numbers中的元素实现了 Copy，因此无需转移所有权
-    for n in numbers {
-        // do something with name...
-    }
-
-    println!("{:?}", numbers);
-} 
+    assert_eq!(n, 66);
+}
