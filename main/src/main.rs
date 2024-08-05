@@ -1,22 +1,22 @@
 
-struct Rectangle {
-    width: u32,
-    height: u32,
+#[derive(Debug)]
+enum TrafficLightColor {
+    Red,
+    Yellow,
+    Green,
 }
 
-// 使用多个 `impl` 语句块重写下面的代码
-impl Rectangle {
-    fn area(&self) -> u32 {
-        self.width * self.height
-    }
-    
-}
-
-
-impl Rectangle {
-    fn can_hold(&self, other: &Rectangle) -> bool {
-        self.width > other.width && self.height > other.height
+// 为 TrafficLightColor 实现所需的方法
+impl TrafficLightColor {
+    fn color(&self) -> String{
+        String::from("yellow")
     }
 }
 
-fn main() {}
+fn main() {
+    let c = TrafficLightColor::Yellow;
+
+    assert_eq!(c.color(), "yellow");
+
+    println!("{:?}",c);
+}
