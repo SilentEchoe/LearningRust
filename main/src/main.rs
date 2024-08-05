@@ -1,22 +1,14 @@
 
-#[derive(Debug)]
-enum TrafficLightColor {
-    Red,
-    Yellow,
-    Green,
-}
+// 实现下面的泛型函数 sum
 
-// 为 TrafficLightColor 实现所需的方法
-impl TrafficLightColor {
-    fn color(&self) -> String{
-        String::from("yellow")
-    }
+use std::iter::Sum;
+
+fn sum<T: std::ops::Add<Output = T> >(a:T,b:T) -> T{
+    a + b
 }
 
 fn main() {
-    let c = TrafficLightColor::Yellow;
-
-    assert_eq!(c.color(), "yellow");
-
-    println!("{:?}",c);
+    assert_eq!(5, sum(2i8, 3i8));
+    assert_eq!(50, sum(20, 30));
+    assert_eq!(2.46, sum(1.23, 1.23));
 }
