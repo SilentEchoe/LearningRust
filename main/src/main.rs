@@ -1,14 +1,19 @@
 
-// 填空，不要修改其它代码
-fn main() {
-    let mut n = 0;
-    for i in 0..=100 {
-        if n != 66 {
-            n+=1;
-            continue;
-        }
-        break
-    }
+// 填空
+enum Direction {
+    East,
+    West,
+    North,
+    South,
+}
 
-    assert_eq!(n, 66);
+fn main() {
+    let dire = Direction::South;
+    match dire {
+        Direction::East => println!("East"),
+        Direction::South  => { // 在这里匹配 South 或 North
+            println!("South or North");
+        },
+        _ => println!("Other"),
+    };
 }
