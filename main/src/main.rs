@@ -1,25 +1,22 @@
+#[derive(Debug)]
+struct TrafficLight {
+    color: String,
+}
 
-enum Foo {
-    Bar,
-    Baz,
-    Qux(u32)
+impl TrafficLight {
+    // 1. 实现下面的关联函数 `new`,
+    // 2. 该函数返回一个 TrafficLight 实例，包含 `color` "red"
+    // 3. 该函数必须使用 `Self` 作为类型，不能在签名或者函数体中使用 `TrafficLight`
+    pub fn new() -> TrafficLight{
+        TrafficLight{color: String::from("red")}
+    }
+
+    pub fn get_state(&self) -> &str {
+        &self.color
+    }
 }
 
 fn main() {
-    let a = Foo::Qux(10);
-
-    // 移除以下代码，使用 `match` 代替
-    // if let Foo::Bar = a {
-    //     println!("match foo::bar")
-    // } else if let Foo::Baz = a {
-    //     println!("match foo::baz")
-    // } else {
-    //     println!("match others")
-    // }
-
-    match a {
-        Foo::Bar => "match foo::bar",
-        Foo::Baz => "match foo::baz",
-        _ => "match others"
-    };
+    let light = TrafficLight::new();
+    assert_eq!(light.get_state(), "red");
 }
