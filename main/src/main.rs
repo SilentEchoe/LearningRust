@@ -1,14 +1,18 @@
 
-// 实现下面的泛型函数 sum
-
-use std::iter::Sum;
-
-fn sum<T: std::ops::Add<Output = T> >(a:T,b:T) -> T{
-    a + b
+// 为 Val 增加泛型参数，不要修改 `main` 中的代码
+struct Val<T> {
+    val: T,
 }
 
+impl<T> Val<T> {
+    fn value(&self) -> &T {
+        &self.val
+    }
+}
+
+
 fn main() {
-    assert_eq!(5, sum(2i8, 3i8));
-    assert_eq!(50, sum(20, 30));
-    assert_eq!(2.46, sum(1.23, 1.23));
+    let x = Val{ val: 3.0 };
+    let y = Val{ val: "hello".to_string()};
+    println!("{}, {}", x.value(), y.value());
 }
