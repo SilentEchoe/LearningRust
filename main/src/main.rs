@@ -1,22 +1,22 @@
-#[derive(Debug)]
-struct TrafficLight {
-    color: String,
+
+struct Rectangle {
+    width: u32,
+    height: u32,
 }
 
-impl TrafficLight {
-    // 1. 实现下面的关联函数 `new`,
-    // 2. 该函数返回一个 TrafficLight 实例，包含 `color` "red"
-    // 3. 该函数必须使用 `Self` 作为类型，不能在签名或者函数体中使用 `TrafficLight`
-    pub fn new() -> TrafficLight{
-        TrafficLight{color: String::from("red")}
+// 使用多个 `impl` 语句块重写下面的代码
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
     }
+    
+}
 
-    pub fn get_state(&self) -> &str {
-        &self.color
+
+impl Rectangle {
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
     }
 }
 
-fn main() {
-    let light = TrafficLight::new();
-    assert_eq!(light.get_state(), "red");
-}
+fn main() {}
