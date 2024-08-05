@@ -1,18 +1,17 @@
 
-// 为 Val 增加泛型参数，不要修改 `main` 中的代码
-struct Val<T> {
-    val: T,
+// 修复错误，让代码工作
+struct Point<T> {
+    x: T,
+    y: T,
 }
 
-impl<T> Val<T> {
-    fn value(&self) -> &T {
-        &self.val
+impl Point<i32>{
+    fn distance_from_origin(&self) -> i32 {
+        self.x + self.y
     }
 }
 
-
 fn main() {
-    let x = Val{ val: 3.0 };
-    let y = Val{ val: "hello".to_string()};
-    println!("{}, {}", x.value(), y.value());
+    let p = Point{x: 5, y: 10};
+    println!("{}",p.distance_from_origin())
 }
