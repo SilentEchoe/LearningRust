@@ -1,17 +1,31 @@
+use std::iter::Sum;
 
-// 修复错误，让代码工作
-struct Point<T> {
-    x: T,
-    y: T,
+pub trait Summary{
+    fn summarize(&self) -> String;
 }
 
-impl Point<i32>{
-    fn distance_from_origin(&self) -> i32 {
-        self.x + self.y
+
+pub struct Post {
+    pub title: String,
+    pub author: String,
+    pub content: String,
+}
+
+// Post 构造函数实现Summary 特征
+impl Summary for Post{
+    fn summarize(&self) -> String {
+        format!("文章{},作者是{}",self.title,self.author)
     }
 }
 
+// 使用特征作为函数参数
+pub fn notify(item: &impl Summary){
+    println!("Breaking news! {}",item.summarize())
+}
+
 fn main() {
-    let p = Point{x: 5, y: 10};
-    println!("{}",p.distance_from_origin())
+    let post = Post{title:"Go语言".to_string(),author:"Go语言".to_string(),content:"Go语言".to_string()};
+
+    // 接口调用
+    println!("{}",post.summarize())
 }

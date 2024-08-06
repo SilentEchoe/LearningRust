@@ -16,3 +16,9 @@ Cargo.lock
 
 .vscode
 .idea
+# pixi environments
+.pixi
+*.egg-info
+*.pixi
+pixi.toml
+pixi.lock
