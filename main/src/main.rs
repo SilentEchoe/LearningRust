@@ -1,31 +1,40 @@
-use std::iter::Sum;
 
-pub trait Summary{
-    fn summarize(&self) -> String;
+// 完成两个 `impl` 语句块
+// 不要修改 `main` 中的代码
+trait Hello {
+    fn say_hi(&self) -> String {
+        String::from("hi")
+    }
+
+    fn say_something(&self) -> String;
 }
 
-
-pub struct Post {
-    pub title: String,
-    pub author: String,
-    pub content: String,
+struct Student {}
+impl Hello for Student {
+    fn say_something(&self) -> String {
+       String::from("I'm a good student")
+    }
 }
+struct Teacher {}
+impl Hello for Teacher {
 
-// Post 构造函数实现Summary 特征
-impl Summary for Post{
-    fn summarize(&self) -> String {
-        format!("文章{},作者是{}",self.title,self.author)
+    fn say_hi(&self) -> String {
+        String::from("Hi, I'm your new teacher")
+    }
+
+    fn say_something(&self) -> String {
+        String::from("I'm not a bad teacher")
     }
 }
 
-// 使用特征作为函数参数
-pub fn notify(item: &impl Summary){
-    println!("Breaking news! {}",item.summarize())
-}
-
 fn main() {
-    let post = Post{title:"Go语言".to_string(),author:"Go语言".to_string(),content:"Go语言".to_string()};
+    let s = Student {};
+    assert_eq!(s.say_hi(), "hi");
+    assert_eq!(s.say_something(), "I'm a good student");
 
-    // 接口调用
-    println!("{}",post.summarize())
+    let t = Teacher {};
+    assert_eq!(t.say_hi(), "Hi, I'm your new teacher");
+    assert_eq!(t.say_something(), "I'm not a bad teacher");
+
+    println!("Success!")
 }
