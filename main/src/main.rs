@@ -1,40 +1,46 @@
 
-// 完成两个 `impl` 语句块
-// 不要修改 `main` 中的代码
-trait Hello {
-    fn say_hi(&self) -> String {
-        String::from("hi")
-    }
+// `Centimeters`, 一个元组结构体，可以被比较大小
+#[derive(PartialEq, PartialOrd)]
+struct Centimeters(f64);
 
-    fn say_something(&self) -> String;
-}
+// `Inches`, 一个元组结构体可以被打印
+#[derive(Debug)]
+struct Inches(i32);
 
-struct Student {}
-impl Hello for Student {
-    fn say_something(&self) -> String {
-       String::from("I'm a good student")
-    }
-}
-struct Teacher {}
-impl Hello for Teacher {
+impl Inches {
+    fn to_centimeters(&self) -> Centimeters {
+        let &Inches(inches) = self;
 
-    fn say_hi(&self) -> String {
-        String::from("Hi, I'm your new teacher")
-    }
-
-    fn say_something(&self) -> String {
-        String::from("I'm not a bad teacher")
+        Centimeters(inches as f64 * 2.54)
     }
 }
+
+// 添加一些属性让代码工作
+// 不要修改其它代码！
+#[derive(Debug)]
+#[derive(PartialEq)]
+#[derive(PartialOrd)]
+struct Seconds(i32);
 
 fn main() {
-    let s = Student {};
-    assert_eq!(s.say_hi(), "hi");
-    assert_eq!(s.say_something(), "I'm a good student");
+    let _one_second = Seconds(1);
 
-    let t = Teacher {};
-    assert_eq!(t.say_hi(), "Hi, I'm your new teacher");
-    assert_eq!(t.say_something(), "I'm not a bad teacher");
+    println!("One second looks like: {:?}", _one_second);
+    let _this_is_true = _one_second == _one_second;
+    let _this_is_false = _one_second > _one_second;
 
-    println!("Success!")
+    let foot = Inches(12);
+
+    println!("One foot equals {:?}", foot);
+
+    let meter = Centimeters(100.0);
+
+    let cmp =
+        if foot.to_centimeters() < meter {
+            "smaller"
+        } else {
+            "bigger"
+        };
+
+    println!("One foot is {} than one meter.", cmp);
 }
