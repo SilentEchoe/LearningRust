@@ -1,68 +1,36 @@
-use std::fmt::{Display, Formatter, Result};
-
-// 实现 `fn summary`
-// 修复错误且不要移除任何代码行
-trait Summary {
-    fn summarize(&self) -> String;
+// 修复代码中的错误
+struct Pair<T> {
+    x: T,
+    y: T,
 }
 
-#[derive(Debug)]
-struct Post {
-    title: String,
-    author: String,
-    content: String,
-}
-
-impl Summary for Post {
-    fn summarize(&self) -> String {
-        format!("The author of post {} is {}", self.title, self.author)
+impl<T> Pair<T> {
+    fn new(x: T, y: T) -> Self {
+        Self {
+            x,
+            y,
+        }
     }
 }
 
-impl Display for Post {
-    fn fmt(&self, f: &mut Formatter) -> Result {
-        write!(f, "Post: {} by {}", self.title, self.author)
+impl<T: std::fmt::Debug + PartialOrd> Pair<T> {
+    fn cmp_display(&self) {
+        if self.x >= self.y {
+            println!("The largest member is x = {:?}", self.x);
+        } else {
+            println!("The largest member is y = {:?}", self.y);
+        }
     }
 }
 
-#[derive(Debug)]
-struct Weibo {
-    username: String,
-    content: String,
-}
-
-impl Summary for Weibo {
-    fn summarize(&self) -> String {
-        format!("{} published a weibo {}", self.username, self.content)
-    }
-}
-
-impl Display for Weibo {
-    fn fmt(&self, f: &mut Formatter) -> Result {
-        write!(f, "Weibo: {} by {}", self.content, self.username)
-    }
-
-}
+#[derive(Debug, PartialEq, PartialOrd)]
+struct Unit(i32);
 
 fn main() {
-    let post = Post {
-        title: "Popular Rust".to_string(),
-        author: "Sunface".to_string(),
-        content: "Rust is awesome!".to_string(),
-    };
-    let weibo = Weibo {
-        username: "sunface".to_string(),
-        content: "Weibo seems to be worse than Tweet".to_string(),
+    let pair = Pair{
+        x: Unit(1),
+        y: Unit(3)
     };
 
-    summary(&post);
-    summary(&weibo);
-
-    println!("{:?}", post);
-    println!("{:?}", weibo);
+    pair.cmp_display();
 }
-
-pub fn summary<T: Summary + Display>(item: &T) {
-    println!("Breaking news! {}", item.summarize());
-}
-
