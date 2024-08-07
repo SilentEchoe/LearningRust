@@ -1,36 +1,81 @@
-// 修复代码中的错误
-struct Pair<T> {
-    x: T,
-    y: T,
-}
 
-impl<T> Pair<T> {
-    fn new(x: T, y: T) -> Self {
-        Self {
-            x,
-            y,
+// 填空
+fn example1() {
+    // `T: Trait` 是最常使用的方式
+    // `T: Fn(u32) -> u32` 说明 `T` 只能接收闭包类型的参数
+    struct Cacher<T: Fn(u32) -> u32> {
+        calculation: T,
+        value: Option<u32>,
+    }
+
+    impl<T: Fn(u32) -> u32> Cacher<T> {
+        fn new(calculation: T) -> Cacher<T> {
+            Cacher {
+                calculation,
+                value: None,
+            }
+        }
+
+        fn value(&mut self, arg: u32) -> u32 {
+            match self.value {
+                Some(v) => v,
+                None => {
+                    let v = (self.calculation)(arg);
+                    self.value = Some(v);
+                    v
+                },
+            }
         }
     }
+
+    // 没有值就赋予值，如果存在值直接返回设置的值
+    let mut cacher = Cacher::new(|x| x+1);
+    assert_eq!(cacher.value(10), 11);
+    assert_eq!(cacher.value(15), 11);
 }
 
-impl<T: std::fmt::Debug + PartialOrd> Pair<T> {
-    fn cmp_display(&self) {
-        if self.x >= self.y {
-            println!("The largest member is x = {:?}", self.x);
-        } else {
-            println!("The largest member is y = {:?}", self.y);
+
+fn example2() {
+    // 还可以使用 `where` 来约束 T
+    struct Cacher<T>
+        where T: Fn(u32) -> u32,
+    {
+        calculation: T,
+        value: Option<u32>,
+    }
+
+    impl<T> Cacher<T>
+        where T: Fn(u32) -> u32,
+    {
+        fn new(calculation: T) -> Cacher<T> {
+            Cacher {
+                calculation,
+                value: None,
+            }
+        }
+
+        fn value(&mut self, arg: u32) -> u32 {
+            match self.value {
+                Some(v) => v,
+                None => {
+                    let v = (self.calculation)(arg);
+                    self.value = Some(v);
+                    v
+                },
+            }
         }
     }
+
+    let mut cacher = Cacher::new(|x| x+1);
+    assert_eq!(cacher.value(20), 21);
+    assert_eq!(cacher.value(25), 21);
 }
 
-#[derive(Debug, PartialEq, PartialOrd)]
-struct Unit(i32);
+
 
 fn main() {
-    let pair = Pair{
-        x: Unit(1),
-        y: Unit(3)
-    };
+    example1();
+    example2();
 
-    pair.cmp_display();
+    println!("Success!")
 }
