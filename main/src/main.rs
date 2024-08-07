@@ -1,46 +1,19 @@
 
-// `Centimeters`, 一个元组结构体，可以被比较大小
-#[derive(PartialEq, PartialOrd)]
-struct Centimeters(f64);
+use std::ops::Mul;
 
-// `Inches`, 一个元组结构体可以被打印
-#[derive(Debug)]
-struct Inches(i32);
+// 实现 fn multiply 方法
+// 如上所述，`+` 需要 `T` 类型实现 `std::ops::Add` 特征
+// 那么, `*` 运算符需要实现什么特征呢? 你可以在这里找到答案: https://doc.rust-lang.org/core/ops/
 
-impl Inches {
-    fn to_centimeters(&self) -> Centimeters {
-        let &Inches(inches) = self;
-
-        Centimeters(inches as f64 * 2.54)
-    }
+fn multiply<T>(x:T,y:T) -> T
+where T:Mul<Output = T >
+{
+    x * y
 }
 
-// 添加一些属性让代码工作
-// 不要修改其它代码！
-#[derive(Debug)]
-#[derive(PartialEq)]
-#[derive(PartialOrd)]
-struct Seconds(i32);
-
 fn main() {
-    let _one_second = Seconds(1);
+    assert_eq!(6, multiply(2u8, 3u8));
+    assert_eq!(5.0, multiply(1.0, 5.0));
 
-    println!("One second looks like: {:?}", _one_second);
-    let _this_is_true = _one_second == _one_second;
-    let _this_is_false = _one_second > _one_second;
-
-    let foot = Inches(12);
-
-    println!("One foot equals {:?}", foot);
-
-    let meter = Centimeters(100.0);
-
-    let cmp =
-        if foot.to_centimeters() < meter {
-            "smaller"
-        } else {
-            "bigger"
-        };
-
-    println!("One foot is {} than one meter.", cmp);
+    println!("Success!")
 }
