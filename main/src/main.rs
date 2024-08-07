@@ -1,50 +1,68 @@
+use std::fmt::{Display, Formatter, Result};
 
-// 修复错误，不要修改 `main` 中的代码!
-use std::ops;
-use std::fmt::{Display};
-use std::ops::Sub;
+// 实现 `fn summary`
+// 修复错误且不要移除任何代码行
+trait Summary {
+    fn summarize(&self) -> String;
+}
 
-#[derive(Debug,PartialEq)]
-struct Foo;
-#[derive(Debug,PartialEq)]
-struct Bar;
+#[derive(Debug)]
+struct Post {
+    title: String,
+    author: String,
+    content: String,
+}
 
-#[derive(Debug,PartialEq)]
-struct FooBar;
-
-#[derive(Debug,PartialEq)]
-struct BarFoo;
-
-// 下面的代码实现了自定义类型的相加： Foo + Bar = FooBar
-impl ops::Add<Bar> for Foo {
-    type Output = FooBar;
-
-    fn add(self, _rhs: Bar) -> FooBar {
-        FooBar
+impl Summary for Post {
+    fn summarize(&self) -> String {
+        format!("The author of post {} is {}", self.title, self.author)
     }
 }
 
-impl ops::Sub<Foo> for Bar {
-    type Output = BarFoo;
-
-    fn sub(self, _rhs: Foo) -> BarFoo {
-        BarFoo
+impl Display for Post {
+    fn fmt(&self, f: &mut Formatter) -> Result {
+        write!(f, "Post: {} by {}", self.title, self.author)
     }
 }
 
-impl Sub<Bar> for Foo {
-    type Output = BarFoo;
+#[derive(Debug)]
+struct Weibo {
+    username: String,
+    content: String,
+}
 
-    fn sub(self, rhs: Bar) -> Self::Output {
-        BarFoo
+impl Summary for Weibo {
+    fn summarize(&self) -> String {
+        format!("{} published a weibo {}", self.username, self.content)
     }
+}
+
+impl Display for Weibo {
+    fn fmt(&self, f: &mut Formatter) -> Result {
+        write!(f, "Weibo: {} by {}", self.content, self.username)
+    }
+
 }
 
 fn main() {
-    // 不要修改下面代码
-    // 你需要为 FooBar 派生一些特征来让代码工作
-    assert_eq!(Foo + Bar, FooBar);
-    assert_eq!(Foo - Bar, BarFoo);
+    let post = Post {
+        title: "Popular Rust".to_string(),
+        author: "Sunface".to_string(),
+        content: "Rust is awesome!".to_string(),
+    };
+    let weibo = Weibo {
+        username: "sunface".to_string(),
+        content: "Weibo seems to be worse than Tweet".to_string(),
+    };
 
-    println!("Success!")
+    summary(&post);
+    summary(&weibo);
+
+    println!("{:?}", post);
+    println!("{:?}", weibo);
 }
+
+pub fn summary<T: Summary + Display>(item: &T) {
+    println!("Breaking news! {}", item.summarize());
+}
+
