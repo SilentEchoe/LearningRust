@@ -1,81 +1,61 @@
-
-// 填空
-fn example1() {
-    // `T: Trait` 是最常使用的方式
-    // `T: Fn(u32) -> u32` 说明 `T` 只能接收闭包类型的参数
-    struct Cacher<T: Fn(u32) -> u32> {
-        calculation: T,
-        value: Option<u32>,
-    }
-
-    impl<T: Fn(u32) -> u32> Cacher<T> {
-        fn new(calculation: T) -> Cacher<T> {
-            Cacher {
-                calculation,
-                value: None,
-            }
-        }
-
-        fn value(&mut self, arg: u32) -> u32 {
-            match self.value {
-                Some(v) => v,
-                None => {
-                    let v = (self.calculation)(arg);
-                    self.value = Some(v);
-                    v
-                },
-            }
-        }
-    }
-
-    // 没有值就赋予值，如果存在值直接返回设置的值
-    let mut cacher = Cacher::new(|x| x+1);
-    assert_eq!(cacher.value(10), 11);
-    assert_eq!(cacher.value(15), 11);
+// 实现一个Bird 的特征
+trait Bird {
+    fn quack(&self) -> String;
 }
 
-
-fn example2() {
-    // 还可以使用 `where` 来约束 T
-    struct Cacher<T>
-        where T: Fn(u32) -> u32,
-    {
-        calculation: T,
-        value: Option<u32>,
+struct Duck;
+impl Duck {
+    fn swim(&self) {
+        println!("Look, the duck is swimming")
     }
-
-    impl<T> Cacher<T>
-        where T: Fn(u32) -> u32,
-    {
-        fn new(calculation: T) -> Cacher<T> {
-            Cacher {
-                calculation,
-                value: None,
-            }
-        }
-
-        fn value(&mut self, arg: u32) -> u32 {
-            match self.value {
-                Some(v) => v,
-                None => {
-                    let v = (self.calculation)(arg);
-                    self.value = Some(v);
-                    v
-                },
-            }
-        }
+}
+struct Swan;
+impl Swan {
+    fn fly(&self) {
+        println!("Look, the duck.. oh sorry, the swan is flying")
     }
-
-    let mut cacher = Cacher::new(|x| x+1);
-    assert_eq!(cacher.value(20), 21);
-    assert_eq!(cacher.value(25), 21);
 }
 
+impl Bird for Duck {
+    fn quack(&self) -> String{
+        "duck duck".to_string()
+    }
+}
 
+impl Bird for Swan {
+    fn quack(&self) -> String{
+        "swan swan".to_string()
+    }
+}
 
 fn main() {
-    example1();
-    example2();
+    // 填空
+    let duck = Duck;
+    duck.swim();
+
+    // 动态
+
+     let bird = hatch_a_bird( 2);
+    // // 变成鸟儿后，它忘记了如何游，因此以下代码会报错
+    // // bird.swim();
+    // // 但它依然可以叫唤
+     assert_eq!(bird.quack(), "duck duck");
+    //
+     let bird = hatch_a_bird(1);
+    // // 这只鸟儿忘了如何飞翔，因此以下代码会报错
+    // // bird.fly();
+    // // 但它也可以叫唤
+     assert_eq!(bird.quack(), "swan swan");
 
     println!("Success!")
+}
+
+// 实现以下函数
+fn hatch_a_bird(x: i32) -> Box<dyn Bird>{
+    let v = Some(x);
+    if v == Some(1) {
+        Box::new(Swan{})
+    }else {
+        Box::new(Duck{})
+    }
 }
