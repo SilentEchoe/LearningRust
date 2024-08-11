@@ -1,32 +1,19 @@
 
-// 填空
+// 修复错误并实现缺失的代码
 fn main() {
-    // array -> Vec
-    // impl From<[T; N]> for Vec
-    let arr = [1, 2, 3];
-    let v1 = Vec::from(arr);
-    let v2: Vec<i32> = arr.into();
+    let mut v = Vec::from([1, 2, 3]);
+    for i in 0..3 {
+        println!("{:?}", v[i])
+    }
 
-    assert_eq!(v1, v2);
+    for i in 4..7 {
+        v.push(i)
+    }
+
+    v.remove(0);
 
 
-    // String -> Vec
-    // impl From<String> for Vec
-    let s = "hello".to_string();
-    let v1: Vec<u8> = s.into_bytes();
-
-    let s = "hello".to_string();
-    let v2 = s.into_bytes();
-    assert_eq!(v1, v2);
-
-    // impl<'_> From<&'_ str> for Vec
-    let s = "hello";
-    let v3 = Vec::from(s);
-    assert_eq!(v2, v3);
-
-    // 迭代器 Iterators 可以通过 collect 变成 Vec
-    let v4: Vec<i32> = [0; 10].into_iter().collect();
-    assert_eq!(v4, vec![0; 10]);
+    assert_eq!(v, vec![2, 3, 4, 5, 6]);
 
     println!("Success!")
 }
