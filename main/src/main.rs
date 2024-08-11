@@ -1,23 +1,31 @@
-
 // 修复错误
 fn main() {
-    let mut v = vec![1, 2, 3];
+    let mut vec = Vec::with_capacity(10);
 
-    let slice1 = &v[..];
-    // 越界访问将导致 panic.
-    // 修改时必须使用 `v.len`
-    let slice2 = &v[0..v.len()];
+    assert_eq!(vec.len(), 0);
+    assert_eq!(vec.capacity(), 10);
 
-    assert_eq!(slice1, slice2);
+    // 由于提前设置了足够的容量，这里的循环不会造成任何内存分配...
+    for i in 0..10 {
+        vec.push(i);
+    }
+    assert_eq!(vec.len(), 10);
+    assert_eq!(vec.capacity(),10);
 
-    // // 切片是只读的
-    // // 注意：切片和 `&Vec` 是不同的类型，后者仅仅是 `Vec` 的引用，并可以通过解引用直接获取 `Vec`
-    let vec_ref: &mut Vec<i32> = &mut v;
-    (*vec_ref).push(4);
-
-    let slice3 = &mut v[0..4];
+    // ...但是下面的代码会造成新的内存分配
+    vec.push(11);
+    assert_eq!(vec.len(), 11);
+    assert!(vec.capacity() >= 11);
 
 
-    assert_eq!(slice3, &[1, 2, 3, 4]);
+    // 填写一个合适的值，在 `for` 循环运行的过程中，不会造成任何内存分配
+    let mut vec = Vec::with_capacity(100);
+    for i in 0..100 {
+        vec.push(i);
+    }
+
+    assert_eq!(vec.len(), 100);
+    assert_eq!(vec.capacity(), 100);
+
     println!("Success!")
 }
