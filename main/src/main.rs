@@ -1,23 +1,40 @@
-use std::ops::Sub;
+use std::task::Poll;
 
-#[derive(Debug, PartialEq)]
-struct Point {
-    x: i32,
-    y: i32,
+trait Pilot {
+    fn fly(&self) -> String;
 }
 
-impl Sub for Point {
-    type Output = Point;
+trait Wizard {
+    fn fly(&self) -> String;
+}
 
-    fn sub(self, other: Self) -> Self::Output {
-        Point {
-            x: self.x - other.x,
-            y: self.y - other.y,
-        }
+struct Human;
+
+impl Pilot for Human {
+    fn fly(&self) -> String {
+        String::from("This is your captain speaking.")
+    }
+}
+
+impl Wizard for Human {
+    fn fly(&self) -> String {
+        String::from("Up!")
+    }
+}
+
+impl Human {
+    fn fly(&self) -> String {
+        String::from("*waving arms furiously*")
     }
 }
 
 fn main() {
-    assert_eq!(Point { x: 2, y: 3 } - Point { x: 1, y: 0 },
-               Point { x: 1, y: 3 });
+    let person = Human;
+
+    assert_eq!(Pilot::fly(&person) , "This is your captain speaking.");
+    assert_eq!(Wizard::fly(&person) , "Up!");
+
+    assert_eq!(Human.fly(), "*waving arms furiously*");
+
+    println!("Success!")
 }
