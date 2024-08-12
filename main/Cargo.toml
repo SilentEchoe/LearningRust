@@ -6,4 +6,3 @@ edition = "2021"
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_derive = "1.0"
-twox_hash = "1.6.3"
