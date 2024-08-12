@@ -1,24 +1,22 @@
-/* 让代码工作 */
 
 #[derive(Debug)]
 struct NoCopyType {}
 
 #[derive(Debug)]
-struct Example<'a> {
+#[allow(dead_code)]
+struct Example<'a, 'b> {
    a: &'a u32,
-   b: &'a NoCopyType
+   b: &'b NoCopyType
 }
+
+/* 修复函数的签名 */
+fn fix_me<'b>(foo: &'b Example) -> &'b NoCopyType
+{ foo.b }
 
 fn main()
 {
-   let var_a = 35;
-   let example: Example;
-
-   let var_b = NoCopyType {};
-   {
-      /* 修复错误 */
-      example = Example { a: &var_a, b: &var_b };
-   }
-
-   println!("(Success!) {:?}", example);
+   let no_copy = NoCopyType {};
+   let example = Example { a: &1, b: &no_copy };
+   fix_me(&example);
+   println!("Success!")
 }
